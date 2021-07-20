@@ -3,8 +3,6 @@
 	Name: Maram "Mara" Sreerama Reddy
 	Reg : 206120017
 	MTech 2020-22 - NIT Tiruchirappalli
-	AOS Assignment - April 2021
-	Submitted to: Prof. Mary Saira Bhanu.
 */
 
 #include <bits/stdc++.h>
