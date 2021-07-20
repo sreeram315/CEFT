@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	{% include 'snippets/css.html' %}
+	{% include 'snippets/css.html' %}
+	{% block css %}{% endblock css %}
+	<title> ROCKY {% block head_name %} {% endblock head_name %}</title>
+	<link rel="icon" href="{% static "images/logo.jpeg" %}" alt="My image">
+</head>
+
+
+<body class="" style="">
+	<div class="p-3" style="">
+		{% include 'snippets/nav_home.html' %}
+	
+
+		{% block extra %}{% endblock extra %}				<!-- extra -->
+	
+		
+		<div class='cont_ex>'>
+		{% block cont_ex %}<br/>							<!-- cont_ex -->
+		{% endblock cont_ex %}
+		</div>
+	</div>
+
+<div class="pl-3 pr-3" style=" position: relative;  width: 97%;">
+<nav class="navbar navbar-dark bg-dark" >
+<ul class="navbar-nav mr-auto">
+        <a class="nav-link" href="/"> <span class="sr-only">(current)</span></a>
+    </ul>
+</nav>
+</div>
+
+</body>
+
+{% include 'snippets/js.html' %}
+
+
+</html>
+{% block js %}{% endblock js %}

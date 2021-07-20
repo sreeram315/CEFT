@@ -1,0 +1,48 @@
+<form method="POST" action="/ceft" id="algorithm" class="row g-3 needs-validation" novalidate> {% csrf_token %}
+  <div class="col-md-4 pb-3">
+    <label for="validationServer01" class="form-label">No. of Processors</label>
+    <input type="text" class="form-control" id="validationServer01" placeholder="(1-100)" required>
+    <div class="valid-feedback">
+      (1-100)
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServer02" class="form-label">No. of Tasks</label>
+    <input type="text" class="form-control" id="validationServer02" placeholder="(1-10000)"  required>
+    <div class="valid-feedback">
+      (1-10000)
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationServerUsername" class="form-label">Total Dependencies</label>
+    <div class="input-group has-validation">
+      <input type="text" class="form-control" id="validationServerUsername" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" placeholder="(1-10000)" required>
+
+      <div id="validationServerUsernameFeedback" class="invalid-feedback">
+        no
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 pb-3">
+    <label for="validationTextarea" class="form-label">Execution time of tasks for each processor</label>
+    <textarea class="form-control" id="validationTextarea" placeholder="Space seperated on each line" required></textarea>
+    <div class="invalid-feedback">
+      
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <label for="validationTextarea" class="form-label">Dependencies and Edge costs</label>
+    <textarea class="form-control" id="validationTextarea" placeholder="Space seperate (NODE NODE WEIGHT) on each line" required></textarea>
+    <div class="invalid-feedback">
+      
+    </div>
+  </div>
+
+  <div class="pt-3 pl-3">
+    <button id="submitFormbtn" class="btn btn-primary" type="submit" disabled>Submit form</button>
+  </div>
+
+
+</form>
