@@ -66,15 +66,19 @@ class CEFT{
 
 		void delete_nodes(vector<bool>included){
 			// deleting the nodes and incident edges from graph (included has boolean true for nodes to be removed)
+			list<pair<int, int>> *newAdj = 	new list<pair<int, int>>[V];
 			for(int v = 0; v < V; v++){
+				//printf("Delete %d\n", v);
 				if(included[v]){
-					adj[v].clear(); continue;
+					continue;
 				}
 				for(list<pair<int, int>>::iterator el=adj[v].begin(); el!=adj[v].end(); el++){
+					//printf("Pair %d %d\n", (*el).first, v); 
 					int w = (*el).first;
-					if(included[w]) adj[v].erase(el);
+					if(!included[w]) newAdj[v].push_back(*el);
 				}
 			}
+			adj = newAdj;
 		}
 
 		void add_pseudo_nodes(){
@@ -113,6 +117,7 @@ class CEFT{
 		void generate_critical_paths(){
 			int count = 0, n = V-2;
 			while(n){				// while all tasks are not pushed to some critical path
+				
 				vector<double>L(V, 0);
 				for(int v = 0; v < V; v++){
 					for(auto x: adj[v]){
@@ -133,8 +138,9 @@ class CEFT{
 						loc  = v;
 					}
 				}
-
+printf("n=%d loc: %d\n", n, loc);	
 				// Building the path by backtraking using predecessors and adding the critical patht o the list
+				// printf("LOC: %d\n", loc);
 				list<int>cp;
 				int node = loc;
 				vector<bool>included(V, false);
@@ -398,6 +404,7 @@ class CEFT{
 				for(int w: cp) printf("%d -> ", w); printf("END\"");
 				cout << endl;
 			}
+			printf("ENDENDEND");
 		}
 
 		void print_exec_time(){
@@ -429,19 +436,18 @@ class CEFT{
 };
 
 
-
 int main(){
 	/*	Creating new object for executing CEFT algorithm and doing things the Mara way.
 	*/
 	CEFT g;
-	g.print_adj();
-	g.print_exec_time();
-	g.calc_dependencies(true);
-	g.calc_predes(true);
-	g.generate_critical_paths();
-	g.print_cps();
-	g.schedule();
-	cout << endl << endl;
+	g.print_adj(); //printf("1* ");
+	g.print_exec_time(); //printf("2* ");
+	g.calc_dependencies(true); //printf("3* ");
+	g.calc_predes(true);// printf("4* ");
+	g.generate_critical_paths();//printf("5* ");
+	g.print_cps();//printf("6* ");
+	g.schedule();//printf("7* ");
+	cout << endl << endl;//printf("8* ");
 }
 
 

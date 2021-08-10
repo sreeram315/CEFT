@@ -26,7 +26,7 @@ class CEFTSerializer(serializers.Serializer):
 		except:
 			raise serializers.ValidationError(f"Invalid fill")
 		s = len(edges)
-		print(f"ne={ne} s={s} {type(ne)} {type(s)}")
+#		print(f"ne={ne} s={s} {type(ne)} {type(s)}")
 		if(int(ne)!=int(s)):
 			raise serializers.ValidationError(f"INVALID DATA. Give exactly {ne} edges and corresponding weights | Needed:{ne} Got:{s}")
 		return edges

@@ -21,7 +21,7 @@ class CEFTApiView(APIView):
 	def post(self, request):
 		request_data 	= 	self.request.data
 		serializer 		= 	CEFTSerializer(data = request_data)
-		print(serializer.initial_data)
+#		print(serializer.initial_data)
 		if not serializer.is_valid():
 			raise exceptions.ValidationError(serializer.errors)
 		f = open('i.txt', 'w+')
@@ -38,14 +38,17 @@ class CEFTApiView(APIView):
 			inp += " ".join([str(t) for t in ed])
 			inp += '\n'
 		f.write(inp)
-		print(inp)
+#		print(inp)
 		f.close()
 		os.system("g++ -std=c++14 main_ceft.cpp -o kk && ./kk  < i.txt > o.txt") 
 		string = open('o.txt', 'r+').readlines()
 		string = ''.join(string)
 		string = string.replace('\n', '<br/>')
-		print('making image')
-		img  = get_graph_img(ntasks, nedges, edges)
+#		print('making image')
+		try:
+			img  = get_graph_img(ntasks, nedges, edges)
+		except:
+			img = "w.jpg"
 		data = {
 			"result": string,
 			"image": f"{img}"

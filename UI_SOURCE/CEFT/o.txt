@@ -3,19 +3,67 @@
  GRAPH:
    N: N1(w1) N1(w2) ...
    0: 1(0)  
-   1: 2(4)  3(0)  
-   2: 1(3)  
+   1: 2(70)  3(0)  
+   2: 3(0)  
    3: 
 
  ============================== 
- EXECUTION TIME OF TASKS(1-2) for PROCCESSORS(1-1):
-   N:  P1
-   1:   3
-   2:   2
+ EXECUTION TIME OF TASKS(1-2) for PROCCESSORS(1-2):
+   N:  P1  P2
+   1:   3   1
+   2:   2   1
 
  ============================== 
  DEPENDENCIES:
  0: 
- 1:  2 
+ 1: 
  2:  1 
  3: 
+
+ ============================== 
+ PREDECESSORS:
+   -1 0 1 2
+n=2 loc: 3
+
+ ============================== 
+ No. of Critical Paths: 1
+ CRITICAL PATHS
+ "START -> 1 -> 2 -> END"
+ENDENDEND
+ ============================== 
+ No. of Queues: 1
+ QUEUES:
+ "START -> 1 -> 2 -> END"
+
+ ============================== 
+ SCHEDULING: 
+ Queue 1: "START -> 1 -> 2 -> END"
+
+ Assigning Processor P1: 
+    StartTime = 0 | FinishTime = 3
+    StartTime = 3 | FinishTime = 5
+ Assigning Processor P2: 
+    StartTime = 0 | FinishTime = 1
+    StartTime = 1 | FinishTime = 2
+
+ Processor End times:  5 2
+ Selected Processor: P2 (2)
+---------------------------- 
+
+ ============================== 
+  FINAL SCHEDULE TABLE (YAYYY!!)
+        P1  P2   SelectedProcessor(Minimum End Time)
+  Q1:    5   2 -> P2
+
+ TOTAL SCHEDULE LENGTH = 2 
+
+ The least End Time processor is choosen for each Queue.
+ ---------------------------- 
+ Busy Schedule of each Processor
+ Processor {StartTime, EndTime}
+ P1: 
+ P2: {1, 2}, 
+
+ ============================== 
+
+
