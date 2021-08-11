@@ -17,7 +17,18 @@
 <div class='container'>
 	<div class="row">
     <div class="col-6">
-	<span class="h3" style="color: ">INPUT</span><hr/> 
+	<span class="h3" style="color: ">INPUT
+		<button  id="fillSampleData1" style="text-align: right;" class="btn btn-light" type="">
+  		Fill Sample Data 1
+  	</button>
+  	<button  id="fillSampleData2" style="text-align: right;" class="btn btn-light" type="">
+  		Fill Sample Data 2
+  	</button> 
+	</span> 
+
+		
+
+  	<hr/> 
 
 
 
@@ -115,7 +126,27 @@ $(function(){
 	window.CSRF_TOKEN = "{{ csrf_token }}";
 	console.log(window.CSRF_TOKEN);
 
-    console.log("YELP!")	
+    console.log("YELP 1 !")	
+
+    $('#fillSampleData1').on("click", function(e){
+    	e.preventDefault();
+	    $("#nprocessors").val("3");
+	    $("#ntasks").val("12");
+	    $("#nedges").val("14");
+	    $("#processing_time").val("0 7 11 12 10 5 9 6 14 10 11 0\n0 8 14 15 8 7 7 8 12 8 13 0\n0 9 17 18 12 6 5 7 12 6 15 0");
+	    $("#edges").val("0 1 0\n1 2 16\n1 3 5\n2 4 14\n2 5 7\n3 6 8\n3 7 12\n4 8 14\n5 8 15\n6 9 16\n7 9 14\n8 10 8\n9 10 17\n10 11 0");
+   	})
+
+   	$('#fillSampleData2').on("click", function(e){
+    	e.preventDefault();
+	    $("#nprocessors").val("3");
+	    $("#ntasks").val("8");
+	    $("#nedges").val("9");
+	    $("#processing_time").val("0 17 18 9 11 11 16 0\n0 19 17 10 12 17 15 0\n0 20 15 10 14 10 16 0");
+	    $("#edges").val("0 1 0\n0 4 0\n1 2 17\n1 3 8\n2 6 19\n3 6 17\n4 5 3\n5 6 9\n6 7 0");
+   	})
+
+
    $('input').on("keypress", function(e){
 
         console.log(e.currentTarget.name);
