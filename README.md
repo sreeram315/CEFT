@@ -1,10 +1,12 @@
 # CEFT algorithm implementation by Mara
 
-Implementation of Constrained earliest finish time first algorithm.
+Implementation of 
+Task scheduling algorithm for multi-processing system with heterogeneous processors and task dependencies with data exchange overhead using critical path detection through graphical analysis of processes. 
+or shortly "TSAMSHPTDDEOCPDGAP" (Tee-Sam-Ship-Deo-Cap-Gap)
 
-For Programming assignment - AOS by Maram Sreerama Reddy.
+Maram Sreerama Reddy.
 
-Proposed by: Minhaj Ahmad Khan
+Inspired from 
 
 *References:*
 
@@ -17,4 +19,4 @@ https://www.researchgate.net/publication/220276538_Scheduling_for_heterogeneous_
 
 
 *Warning: Not to be used commercially unless you give me money.*
-# CEFT
+
