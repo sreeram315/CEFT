@@ -16,17 +16,39 @@ class CEFTSerializer(serializers.Serializer):
 		np = self.initial_data['nprocessors']
 		nt = self.initial_data['ntasks']
 		s = len(processing_time)
-		if(int(np)!=int(s) or (not all([len(t)==int(nt) for t in processing_time]))):
-			raise serializers.ValidationError(f"INVALID DATA. Give processing time for exactly {nt} tasks for {np} processors | Got {s} tasks")
-		return processing_time
+		try:
+			if(int(np)!=int(s) or (not all([len(t)==int(nt) for t in processing_time]))):
+				raise serializers.ValidationError(f"INVALID DATA. Give processing time for exactly {nt} tasks for {np} processors | Got {s} tasks")
+			return processing_time
+		except:
+			raise serializers.ValidationError(f"Bad input for processing times | Give processing time for exactly <{nt}> tasks and  <{np}> processors | Got {s} tasks")
 
 	def validate_edges(self, edges):
-		try:
-			ne = self.initial_data['nedges']
-		except:
-			raise serializers.ValidationError(f"Invalid fill")
+		ne = self.initial_data['nedges']
 		s = len(edges)
-#		print(f"ne={ne} s={s} {type(ne)} {type(s)}")
-		if(int(ne)!=int(s)):
-			raise serializers.ValidationError(f"INVALID DATA. Give exactly {ne} edges and corresponding weights | Needed:{ne} Got:{s}")
-		return edges
+		try:
+	#		print(f"ne={ne} s={s} {type(ne)} {type(s)}")
+			if(int(ne)!=int(s)):
+				raise serializers.ValidationError(f"INVALID DATA. Give exactly {ne} edges and corresponding weights | Needed:{ne} Got:{s}")
+			return edges
+		except:
+			raise serializers.ValidationError(f"Bad input for dependencies | Give exactly <{ne}> edges and corresponding weights | Needed:<{ne}> Got:<{s}>")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

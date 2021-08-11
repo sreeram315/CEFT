@@ -6,7 +6,14 @@
 
 {% block cont_ex %}
 <br/>
-	<div class="h5 align_center"> CEFT Algorithm</div><hr/>
+	<div class="h5 align_center">  Algorithm: Task scheduling algorithm for multi-processing system with heterogeneous processors and task dependencies with data exchange overhead using critical path detection through graphical analysis of processes. <a href="{% static 'main_ceft.cpp' %}">(Download Code)</a> </br>
+	or shortly <i> "TSAMSHPTDDEOCPDGAP" </i> (Tee-Sam-Ship-Deo-Cap-Gap)
+	<div style="text-align: right"> - Sreeram Maram/ Mara/ Wira</div>
+	<small style="color: grey; font-size: 10px;"> Scheduling algorithms are complex to handle all the cases. this is not refined for practical use yet. So you might see some errors thrown from time to time. you can bother me at wiramaram@gmail.com
+	</small>
+	</div>
+
+	<hr/>
 <div class='container'>
 	<div class="row">
     <div class="col-6">
@@ -14,17 +21,24 @@
 
 
 
-	<form method="POST" action="/ceft" id="algorithm" class="row g-3 needs-validation" novalidate> {% csrf_token %}
+	<form method="POST" action="/ceft" id="algorithm" class="row g-3 needs-validation" > {% csrf_token %}
   <div class="col-md-4 pb-3">
     <label for="validationServer01" class="form-label">No. of Processors</label>
-    <input type="text" class="form-control" id="nprocessors" name="nprocessors" placeholder="(1-100)" required>
-    <div class="valid-feedback">
+    <input  type="text" class="form-control" id="nprocessors" name="nprocessors" placeholder="(1-100)" required>
+    <div id="nprocessorsfeedback" class="invalid-feedback">
+        Bad data
+      </div>
+    <div  class="valid-feedback">
       (1-100)
     </div>
   </div>
   <div class="col-md-4">
     <label for="validationServer02" class="form-label">No. of Tasks</label>
     <input type="text" class="form-control" id="ntasks" name="ntasks" placeholder="(1-10000)"  required>
+    
+    <div id="ntasksfeedback" class="invalid-feedback">
+        Bad data
+      </div>
     <div class="valid-feedback">
       (1-10000)
     </div>
@@ -34,8 +48,8 @@
     <div class="input-group has-validation">
       <input type="text" class="form-control" id="nedges" name="nedges" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" placeholder="(1-10000)" required>
 
-      <div id="validationServerUsernameFeedback" class="invalid-feedback">
-        no
+      <div id="nedgesfeedback" class="invalid-feedback">
+        Bad data
       </div>
     </div>
   </div>
@@ -43,26 +57,25 @@
   <div class="col-md-12 pb-3">
     <label for="validationTextarea" class="form-label">Execution time of tasks for each processor</label>
     <textarea class="form-control" id="processing_time" name="processing_time" placeholder="Space seperated on each line" value="" required></textarea>
-    <div class="invalid-feedback">
-      
+    <div id="processing_timefeedback" class="invalid-feedback">
+      Please enter a message in the textarea.
     </div>
   </div>
 
   <div class="col-md-12">
     <label for="validationTextarea" class="form-label">Dependencies and Edge costs</label>
     <textarea class="form-control" id="edges" name="edges" placeholder="Space seperate (NODE NODE WEIGHT) on each line" value="" required></textarea>
-    <div class="invalid-feedback">
-      
+    <div id="edgesfeedback" class="invalid-feedback">
+      Please enter a message in the textarea.
     </div>
   </div>
 
   <div class="pl-3 pt-2">
-  	<button  id="submitFormbtn" class="btn btn-primary" type="button">
+  	<button  id="submitFormbtn" class="btn btn-primary" type="submit">
   		<span id="submitFormbtn2"  class=" spinner-border-sm" role="status" aria-hidden="true"></span>
   		Submit
   	</button>
   </div>
-
 
 </form>
     </div>
@@ -79,6 +92,7 @@
 	<div class="row">
 	    <div class="col">
 		<span class="h3" style="color: ">OUTPUT</span><hr/> 
+			submit and see output here
 	      <div class="output" id="output" style="white-space:pre-wrap;"></div>
 	    </div>
 	</div>
@@ -112,6 +126,7 @@ $(function(){
         form_data["edges"]   			= $("textarea[name=edges]").val();
     });
 
+     var fields = ["nprocessors", "ntasks", "nedges", "processing_time", "edges"];
    	$('#submitFormbtn').on("click", function(e){
    		// DISABLING BUTTON
    		console.log("SUBMITTING")
@@ -126,6 +141,23 @@ $(function(){
         form_data["processing_time"] 	= $("textarea[name=processing_time]").val();
         form_data["edges"]   			= $("textarea[name=edges]").val();
    		// SENDING DATA
+   		
+   		var flag = false;
+   		for(var x in form_data){
+   			if(!form_data[x]){
+   				flag = true;
+   				console.log("NO ", x);
+   			}
+   			else
+   				console.log(x, form_data[x]);
+   		}
+   		if(flag){
+	   		$('#submitFormbtn').removeClass('disabled');
+   			$('#submitFormbtn2').removeClass('spinner-border');	
+				console.log("RETURNING");
+	   		// return;
+			}
+
    		console.log(form_data)
    		var res = form_data["processing_time"].split("\n");
    		console.log(res);
@@ -147,24 +179,7 @@ $(function(){
    		console.log(edges)
    		form_data['edges'] = edges;
 
-   		// form_data = {"nprocessors": 3, "ntasks": 12, "nedges": 14, 
-   		// "processing_time": [ [0, 7, 11, 12, 10, 5, 9, 6, 14, 10, 11, 0],
-			  //               [0 ,8 ,14 ,15, 8, 7, 7, 8, 12 ,8 ,13, 0],
-			  //               [0, 9, 17, 18, 12, 6, 5, 7, 12, 6, 15, 0] ], 
-			  //  "edges": [[0, 1, 0],
-			  //           [1 ,2 ,16],
-			  //           [1, 3, 5],
-			  //           [2, 4 ,14],
-			  //           [2 ,5 ,7],
-			  //           [3 ,6, 8],
-			  //           [3 ,7, 12],
-			  //           [4 ,8, 14],
-			  //           [5 ,8, 15],
-			  //           [6 ,9 ,16],
-			  //           [7, 9, 14],
-			  //           [8, 10, 8],
-			  //           [9 ,10, 17],
-			  //           [10, 11, 0] ]}
+
 		console.log("GIVING", form_data)
    		$.ajax({ 
    			dataType: 'json',
@@ -180,9 +195,22 @@ $(function(){
 	            $("#graph_img").attr("src", e.image);
 	            $('#submitFormbtn2').removeClass('spinner-border');	
 
+        		for(var i in fields) $("#"+fields[i]).removeClass("is-invalid");
+        		for(var i in fields) $("#"+fields[i]).addClass("is-valid");
+
 	        },
 	        error: function(e) {
 	        	console.log('FAILED');
+	        	var data = JSON.parse(e.responseText);
+        		for(var i in fields) $("#"+fields[i]).removeClass("is-invalid");
+        		for(var i in fields) $("#"+fields[i]).addClass("is-valid");
+	        	for(var key in data) {
+	        		console.log(key, data[key]);
+	        		$("#"+key).addClass("is-invalid");
+	        		$("#"+key).removeClass("is-valid");
+	        		$("#"+key+"feedback").text(data[key]);
+	        	}
+
 	        	console.log(e.responseText);
 	            $('#submitFormbtn2').removeClass('spinner-border');	
 	        } 
