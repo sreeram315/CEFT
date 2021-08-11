@@ -1,11 +1,13 @@
 
 
+import networkx as nx
+import matplotlib
+import matplotlib.pyplot as plt
+from datetime import datetime
 
 def get_graph_img(n, e, edges):
 #    print(f"n={n} e={e}")
-    import networkx as nx
-    import matplotlib.pyplot as plt
-    from datetime import datetime
+    matplotlib.use("Agg")
     G = nx.DiGraph()
     positions = [ [5, 7], [5, 6], [4, 5], [6, 5], [3, 4], [4, 4], [6, 4], [7, 4], [4, 3], [6, 3], [5, 2], [5, 1] ]
     for node in range(n):
@@ -24,4 +26,5 @@ def get_graph_img(n, e, edges):
     dt = str(datetime.now())
     name = f"static/mg-{dt}.png"
     plt.savefig(name)
+    plt.close()
     return name
