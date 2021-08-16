@@ -1,4 +1,4 @@
-# CEFT algorithm implementation by Mara
+# TaskScheduler algorithm implementation by Mara
 
 Implementation of 
 Task scheduling algorithm for multi-processing system with heterogeneous processors and task dependencies with data exchange overhead using critical path detection through graphical analysis of processes. 
