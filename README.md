@@ -18,5 +18,5 @@ https://www.researchgate.net/publication/220276538_Scheduling_for_heterogeneous_
 
 
 
-*Warning: Not to be used commercially unless you give me money.*
+*Use it as you please it.*
 
