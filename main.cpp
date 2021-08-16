@@ -1,14 +1,12 @@
 // This code is property of the fat body prince
 /*
 	Name: Maram "Mara" Sreerama Reddy
-	Reg : 206120017
-	MTech 2020-22 - NIT Tiruchirappalli
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-class CEFT{
+class TaskScheduler{
 	int V, np;
 	// Variables to store the results
 	vector<vector<pair<int, int>>>aval_time;
@@ -20,7 +18,7 @@ class CEFT{
 	vector<int>prec, predes;
 
 	public:
-		CEFT(){ 							// Contructor to take input data
+		TaskScheduler(){ 							// Contructor to take input data
 			/*
 				Input Data includes:
 					Graph -> nodes, edges, weights
@@ -427,9 +425,9 @@ class CEFT{
 
 
 int main(){
-	/*	Creating new object for executing CEFT algorithm and doing things the Mara way.
+	/*	Creating new object for executing TaskScheduler algorithm and doing things the Mara way.
 	*/
-	CEFT g;
+	TaskScheduler g;
 	g.print_adj();
 	g.print_exec_time();
 	g.calc_dependencies(true);
