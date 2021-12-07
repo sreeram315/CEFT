@@ -12,6 +12,14 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
 
+      <li class="nav-item {% if 'ceft' in request.get_full_path %} active {% endif %}">
+        <a class="nav-link" href="/ceft">CEFT Algorithm</a>
+      </li>
+
+      <li class="nav-item {% if 'saliency' in request.get_full_path %} active {% endif %}">
+        <a class="nav-link" href="/saliency">Saliency Detection</a>
+      </li>
+
       <li class="nav-item {% if 'contact' in request.get_full_path %} active {% endif %}">
         <a class="nav-link" href="/contact">Contact us</a>
       </li>
@@ -22,57 +30,6 @@
     </ul>
   </div>
 </nav>
-
-
-
-<div class="pt-2 pl-5 pr-5">
-<div class="alert alert-success" id="otp_verification_successful" role="alert">
-  OTP verification succesfull. Thank you.
-</div>
-</div>
-
-{% if user.is_authenticated and not user.userprofile.is_verified %}
-
-<div class="pt-2 pl-5 pr-5" id="verify_warning">
-<div class="alert alert-warning" role="alert">
-  Your contact number (+91 {{user.userprofile.contact_number}}) is not verified, please do so to avoid inactivation.
-
-  <span><button type="button" class="btn btn-warning" id="send_otp_btn" data-toggle="modal" data-target="#OTPModal">Send OTP</button></span>
-
-
-<!-- Modal -->
-<div class="modal fade" id="OTPModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        An OTP has been sent to {{user.userprofile.contact_number}}. Please enter it below to verify.
-              <div class="otp_field pt-2">
-                <input type="text" name="otp" id="otp_field" class="form-control" id="exampleDropdownFormEmail1" placeholder="OTP here">
-              </div>
-      </div>
-      <div class="modal-footer">
-        <button id="resend_otp_btn" type="button" class="btn btn-secondary">Resend OTP</button>
-        <button id="close_model_btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="submit_otp_btn" type="button" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-</div>
-</div>
-
-<input hidden id="username" type="text" name="username" value="{{user.username}}">
-
-{% endif %}
 
 
 

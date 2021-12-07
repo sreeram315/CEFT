@@ -1,17 +1,53 @@
 from django.shortcuts import render
 import os
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework import viewsets, permissions, exceptions, response
+from utils.do import cropSalienctAspects
 
+from .forms import SaliencyForm
 from .utils import get_graph_img
 from .serializers import CEFTSerializer
+from .models import SaliencyImage
 from django.conf.urls.static import static
 import json
 
+
+
 class HomeView(TemplateView):
-	template_name = 'index.html'
+	template_name = 'home.html'
+
+class CEFTTemplateView(TemplateView):
+	template_name = 'ceft.html'
+
+class SaliencyTemplateView(FormView):
+	template_name = 'saliency.html'
+	form_class = SaliencyForm
+
+	def form_valid(self, form):
+		if form.is_valid():
+			obj = form.save()
+			obj.save()
+			obj.name = obj.image.name
+			obj.save()
+			image_path = obj.image.path
+			image_name = obj.image.name
+			cropSalienctAspects(image_name, image_path)
+		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
+
+	def get_success_url(self):
+		obj = SaliencyImage.objects.last()
+		return f"/saliency-analysis/{obj.id}/"
+
+
+class SaliencyAnalysisView(TemplateView):
+	template_name = 'saliency_analysis.html'
+
+	def get_context_data(self, *args, **kwargs):
+		obj = SaliencyImage.objects.get(id = kwargs['imageId'])
+		return {"image": obj}
+
 
 class CEFTApiView(APIView):
 	permission_classes = (
