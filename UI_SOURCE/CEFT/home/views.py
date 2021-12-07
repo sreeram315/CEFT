@@ -29,9 +29,9 @@ class SaliencyTemplateView(FormView):
 		if form.is_valid():
 			obj = form.save()
 			obj.save()
-			obj.name = "thisisthename"
+			obj.name = ((obj.image.name).strip("."))[0]
 			obj.save()
-			image_path, image_name = obj.image.path, obj.image.name
+			image_path, image_name = obj.image.path, obj.name
 			cropSalienctAspects(image_name, image_path)
 		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 
