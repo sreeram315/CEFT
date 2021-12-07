@@ -33,6 +33,9 @@ def cropSalienctAspects(image_name, image_path):
   # Crop images for different aspect ratios, with saliency coordinate as centre point
   from fractions import Fraction
   from .utils import cropImage
+  import os 
+  nameWithoutExtension = image_name.split('.')[0]
+  os.mkdir(f"/static/saliency_outputs/{nameWithoutExtension}")
   absoluteImagePath = str(img_path.absolute())
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
   salientCoordinates = saliencyData['top10_average_coordinates']
@@ -42,7 +45,7 @@ def cropSalienctAspects(image_name, image_path):
     height = fraction.numerator
     width = fraction.denominator
     print(f"Aspect Width: {width} Height: {height}")
-    cropImage(absoluteImagePath, (width, height), salientCoordinates, f"/static/saliency_outputs/{image_name}/{ratio}")
+    cropImage(absoluteImagePath, (width, height), salientCoordinates, f"/static/saliency_outputs/{nameWithoutExtension}/{ratio}")
 
 
 
