@@ -34,7 +34,7 @@ def cropSalienctAspects(image_name, image_path):
   from fractions import Fraction
   from .utils import cropImage
   import os 
-  nameWithoutExtension = image_name.split('.')[0]
+  nameWithoutExtension = image_name
   salienctCutsPath = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}"
   os.mkdir(salienctCutsPath)
   absoluteImagePath = str(img_path.absolute())
