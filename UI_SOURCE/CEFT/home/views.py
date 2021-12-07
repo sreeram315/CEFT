@@ -30,7 +30,7 @@ class SaliencyTemplateView(FormView):
 			obj = form.save()
 			obj.save()
 			print(f"\n{obj.image.name}\n")
-			obj.name = ((obj.image.name).strip("."))[0]
+			obj.name = ((obj.image.name).split("."))[0]
 			print(f"\n{obj.name}\n")
 			obj.save()
 			image_path, image_name = obj.image.path, obj.name
