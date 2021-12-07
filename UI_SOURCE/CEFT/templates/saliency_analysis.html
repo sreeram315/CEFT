@@ -5,7 +5,35 @@
 
 {% block cont_ex %}
 
-{{image.name}}
+ID: {{image.id}} <br/>
+Name: {{image.name}}
+
+<div class="container-fluid">
+	<div class="row pb-4">
+		<div class="col-6">
+			<h3>Aspect Ratio: .615</h3>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/0.3125.jpeg"/>
+		</div>
+		<div class="col-6">
+			<h3>Aspect Ratio: .312</h3>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/0.3125.jpeg"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-4">
+			<h3>Aspect Ratio: 1</h3>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/1.0.jpeg"/>
+		</div>
+		<div class="col-4">
+			<h3>Aspect Ratio: 1.14</h3>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/1.14.jpeg"/>
+		</div>
+		<div class="col-4">
+			<h3>Aspect Ratio: 2</h3>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/2.jpeg"/>
+		</div>
+	</div>
+</div>
 
 {% endblock %} 
 

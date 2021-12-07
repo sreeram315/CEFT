@@ -31,8 +31,7 @@ class SaliencyTemplateView(FormView):
 			obj.save()
 			obj.name = obj.image.name
 			obj.save()
-			image_path = obj.image.path
-			image_name = obj.image.name
+			image_path, image_name = obj.image.path, obj.image.name
 			cropSalienctAspects(image_name, image_path)
 		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 
@@ -41,12 +40,14 @@ class SaliencyTemplateView(FormView):
 		return f"/saliency-analysis/{obj.id}/"
 
 
+
 class SaliencyAnalysisView(TemplateView):
 	template_name = 'saliency_analysis.html'
 
 	def get_context_data(self, *args, **kwargs):
 		obj = SaliencyImage.objects.get(id = kwargs['imageId'])
 		return {"image": obj}
+
 
 
 class CEFTApiView(APIView):
