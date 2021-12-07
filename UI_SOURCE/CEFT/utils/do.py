@@ -15,8 +15,8 @@ from matplotlib.collections import PatchCollection
 def cropSalienctAspects(image_name, image_path):
   print("CALLED cropSalienctAspects")
   img_path    = Path(image_path)
-  bin_path    = Path("candidate_crops")
-  model_path  = Path("fastgaze.vxm")
+  bin_path    = Path("utils/candidate_crops")
+  model_path  = Path("utils/fastgaze.vxm")
 
   print("\n")
   print(f"Image is at: {str(img_path.absolute())}")
