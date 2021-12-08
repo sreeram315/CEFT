@@ -159,13 +159,24 @@ class ImageSaliencyModel(object):
         output = parse_output(output)
         return output
 
-    def plot_saliency_map(self, img, all_salient_points, ax=None):
+    def saveHeatMap(self, img, all_salient_points, heatmap_path):
+        fig, ax = plt.subplots(1, 1)
+        sx, sy, sz = zip(*all_salient_points)
+        ax.imshow(img, alpha=0.1)
+        ax.scatter(sx, sy, c=sz, s=100, alpha=0.8, marker="s", cmap="Reds")
+        ax.set_axis_off()
+        fig.savefig(heatmap_path)
+        return ax
+
+
+    def plot_saliency_map(self, img, all_salient_points, ax = None, download = False):
         if ax is None:
             fig, ax = plt.subplots(1, 1)
         # Sort points based on Y axis
         sx, sy, sz = zip(*all_salient_points)
         ax.imshow(img, alpha=0.1)
         ax.scatter(sx, sy, c=sz, s=100, alpha=0.8, marker="s", cmap="Reds")
+        # return ax
         ax.set_axis_off()
         return ax
 
@@ -233,12 +244,13 @@ class ImageSaliencyModel(object):
         return self.plot_img_crops(img_path, topK=1, aspectRatios=None)
 
     def someNewFunction():
-        # print("CALLED: someNewFunction")
+        print("CALLED: someNewFunction")
         return "Hello"
 
     def plot_img_crops(
         self,
         img_path,
+        heatmap_path,
         topK=1,
         aspectRatios=None,
         checkSymmetry=True,
@@ -246,7 +258,7 @@ class ImageSaliencyModel(object):
         col_wrap=None,
         add_saliency_line=True,
     ):
-        # print("2. HELLO, starting plot_img_crops")
+        print("2. HELLO, starting plot_img_crops")
         img = mpimg.imread(img_path)
         img_h, img_w = img.shape[:2]
 
@@ -254,10 +266,10 @@ class ImageSaliencyModel(object):
             aspectRatios = self.aspectRatios
 
         if aspectRatios is None:
-            # print("No aspects passed. Taking default ones.")
+            print("No aspects passed. Taking default ones.")
             aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
 
-        # print("Aspects being submitted: ", aspectRatios)
+        print("Aspects being submitted: ", aspectRatios)
         output = self.get_output(img_path, aspectRatios=aspectRatios)
         n_crops = len(output["crops"])
         salient_x, salient_y, = output[
@@ -292,16 +304,23 @@ class ImageSaliencyModel(object):
                 fig_width = fig_w * ncols
                 fig_height = fig_h * nrows
 
-        fig = plt.figure(constrained_layout=False, figsize=(fig_width, fig_height))
-        gs = fig.add_gridspec(nrows, ncols)
-        plt.title("Crops for different aspect ratios", y=1.08, fontdict = {'fontsize' : 27}, color = 'r')
+
+        print("->", nrows, ncols)
+
 
         # Sort based on saliency score
         all_salient_points = output["all_salient_points"]
         sx, sy, sz = zip(*sorted(all_salient_points, key=lambda x: x[-1], reverse=True))
         A2 = [ _ for _ in all_salient_points ]
-        A2.sort(key=lambda x: x[-1], reverse=True)
-        # print(A2)
+        A2.sort(key = lambda x: x[-1], reverse=True)
+        print(A2)
+
+        ax_map = self.saveHeatMap(img, all_salient_points, heatmap_path)
+
+        fig = plt.figure(constrained_layout=False, figsize=(fig_width, fig_height))
+        gs = fig.add_gridspec(nrows, ncols)
+        plt.title("Crops for different aspect ratios", y=1.08, fontdict = {'fontsize' : 27}, color = 'r')
+        # plt.show()
 
         sx = np.asarray(sx)
         sy = np.asarray(sy)
@@ -317,10 +336,12 @@ class ImageSaliencyModel(object):
         for t in range(0, topK):
             salient_x, salient_y, saliency_score = sx[t], sy[t], sz[t]
             logging.info(f"t={t}: {(salient_x, salient_y, saliency_score)}")
-            # print(f"t={t}: {(salient_x, salient_y, saliency_score)}")
+            print(f"t={t}: {(salient_x, salient_y, saliency_score)}")
             if n_crops > 1 or (t == 0 and n_crops == 1):
                 ax_map = fig.add_subplot(gs[t * per_K_rows, 0])
                 ax_map = self.plot_saliency_map(img, all_salient_points, ax=ax_map)
+
+            extent = ax_map.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
 
             for i, original_crop in enumerate(output["crops"]):
                 if n_crops == 1:
@@ -360,6 +381,6 @@ class ImageSaliencyModel(object):
         **kwargs,
     ):
         with tempfile.NamedTemporaryFile("w+b") as fp:
-            # print(fp.name)
+            print(fp.name)
             img.save(fp, img_format)
             self.plot_img_crops(Path(fp.name), **kwargs)

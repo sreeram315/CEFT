@@ -18,25 +18,19 @@ def cropSalienctAspects(image_name, image_path):
   bin_path    = Path("utils/candidate_crops")
   model_path  = Path("utils/fastgaze.vxm")
 
-  # print("\n")
-  # print(f"Image is at: {str(img_path.absolute())}")
-  # print(f"Model is at: {str(model_path)}")
-  # print("\n")
-
-
+  nameWithoutExtension = image_name
+  imageDataPath = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}"
+  import os 
+  os.mkdir(imageDataPath)
 
   from .crop_api import ImageSaliencyModel
   model = ImageSaliencyModel(crop_binary_path = bin_path.absolute(), crop_model_path = model_path.absolute())
-  saliencyData = model.plot_img_crops(img_path)
+  saliencyData = model.plot_img_crops(img_path, f"{imageDataPath}/head_map.jpeg")
   # print(saliencyData)
 
 
   from fractions import Fraction
   from .utils import cropImage
-  import os 
-  nameWithoutExtension = image_name
-  salienctCutsPath = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}"
-  os.mkdir(salienctCutsPath)
   absoluteImagePath = str(img_path.absolute())
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
   salientCoordinates = saliencyData['top10_average_coordinates']
@@ -46,7 +40,7 @@ def cropSalienctAspects(image_name, image_path):
     height = fraction.numerator
     width = fraction.denominator
     # print(f"Aspect Width: {width} Height: {height}")
-    cropImage(absoluteImagePath, (width, height), salientCoordinates, f"{salienctCutsPath}/{ratio}")
+    cropImage(absoluteImagePath, (width, height), salientCoordinates, f"{imageDataPath}/my_crops/{ratio}")
 
 
 

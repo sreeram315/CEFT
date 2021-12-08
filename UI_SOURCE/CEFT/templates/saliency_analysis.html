@@ -5,11 +5,13 @@
 
 {% block cont_ex %}
 
-ID: {{image.id}} <br/>
-Name: {{image.name}} <br/>
-Share results using URL: <a href="http://13.235.13.185:8000{{ request.path }}"> http://13.235.13.185:8000{{ request.path }}</a>
+<div class="container pb-3">
+	<b>ID:</b> {{image.id}} <br/>
+	<b>Name:</b> {{image.name}} <br/>
+	<b>Share results using URL:</b> <a href="http://13.235.13.185:8000{{ request.path }}"> http://13.235.13.185:8000{{ request.path }}</a>
+</div>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row pb-4">
 		<div class="col-6">
 			<h3>Aspect Ratio: .615</h3>
