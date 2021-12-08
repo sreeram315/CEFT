@@ -166,7 +166,7 @@ class ImageSaliencyModel(object):
         ax.scatter(sx, sy, c=sz, s=100, alpha=0.8, marker="s", cmap="Reds")
         ax.set_axis_off()
         plt.savefig(heatmap_path)
-        plt.close()
+        # plt.close()
         return ax
 
 
