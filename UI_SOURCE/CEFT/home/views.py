@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework import viewsets, permissions, exceptions, response
 from utils.do import cropSalienctAspects, generateBackProjectionData
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import SaliencyForm
 from .utils import get_graph_img
@@ -56,6 +57,7 @@ class CEFTApiView(APIView):
         permissions.AllowAny,
     )
 
+	@csrf_exempt
 	def post(self, request):
 		request_data 	= 	self.request.data
 		serializer 		= 	CEFTSerializer(data = request_data)
