@@ -4,7 +4,7 @@ from django.views.generic import TemplateView, FormView
 from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework import viewsets, permissions, exceptions, response
-from utils.do import cropSalienctAspects
+from utils.do import cropSalienctAspects, generateBackProjectionData
 
 from .forms import SaliencyForm
 from .utils import get_graph_img
@@ -33,6 +33,7 @@ class SaliencyTemplateView(FormView):
 			obj.save()
 			image_path, image_name = obj.image.path, obj.name
 			cropSalienctAspects(image_name, image_path)
+			generateBackProjectionData(image_name, image_path)
 		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 
 	def get_success_url(self):

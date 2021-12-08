@@ -59,7 +59,10 @@ def cropSalienctAspects(image_name, image_path):
     # print(f"Aspect Width: {width} Height: {height}")
     cropImage(absoluteImagePath, (width, height), salientCoordinates, f"{imageDataPath}/my_crops/{ratio}")
 
-
+def generateBackProjectionData(image_name, image_path):
+  nameWithoutExtension = image_name
+  download_path = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}/back_projection"
+  saveBackProjectionData(image_path, download_path)
 
 
 
