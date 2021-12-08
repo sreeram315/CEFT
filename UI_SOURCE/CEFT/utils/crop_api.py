@@ -305,7 +305,7 @@ class ImageSaliencyModel(object):
                 fig_height = fig_h * nrows
 
 
-        print("->", nrows, ncols)
+        # print("->", nrows, ncols)
 
 
         # Sort based on saliency score
@@ -313,7 +313,7 @@ class ImageSaliencyModel(object):
         sx, sy, sz = zip(*sorted(all_salient_points, key=lambda x: x[-1], reverse=True))
         A2 = [ _ for _ in all_salient_points ]
         A2.sort(key = lambda x: x[-1], reverse=True)
-        print(A2)
+        # print(A2)
 
         ax_map = self.saveHeatMap(img, all_salient_points, heatmap_path)
 
@@ -336,7 +336,7 @@ class ImageSaliencyModel(object):
         for t in range(0, topK):
             salient_x, salient_y, saliency_score = sx[t], sy[t], sz[t]
             logging.info(f"t={t}: {(salient_x, salient_y, saliency_score)}")
-            print(f"t={t}: {(salient_x, salient_y, saliency_score)}")
+            # print(f"t={t}: {(salient_x, salient_y, saliency_score)}")
             if n_crops > 1 or (t == 0 and n_crops == 1):
                 ax_map = fig.add_subplot(gs[t * per_K_rows, 0])
                 ax_map = self.plot_saliency_map(img, all_salient_points, ax=ax_map)
