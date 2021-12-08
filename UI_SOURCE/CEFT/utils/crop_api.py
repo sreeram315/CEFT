@@ -245,7 +245,7 @@ class ImageSaliencyModel(object):
         return self.plot_img_crops(img_path, topK=1, aspectRatios=None)
 
     def someNewFunction():
-        print("CALLED: someNewFunction")
+        # print("CALLED: someNewFunction")
         return "Hello"
 
     def plot_img_crops(
@@ -259,7 +259,7 @@ class ImageSaliencyModel(object):
         col_wrap=None,
         add_saliency_line=True,
     ):
-        print("2. HELLO, starting plot_img_crops")
+        # print("2. HELLO, starting plot_img_crops")
         img = mpimg.imread(img_path)
         img_h, img_w = img.shape[:2]
 
@@ -267,10 +267,10 @@ class ImageSaliencyModel(object):
             aspectRatios = self.aspectRatios
 
         if aspectRatios is None:
-            print("No aspects passed. Taking default ones.")
+            # print("No aspects passed. Taking default ones.")
             aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
 
-        print("Aspects being submitted: ", aspectRatios)
+        # print("Aspects being submitted: ", aspectRatios)
         output = self.get_output(img_path, aspectRatios=aspectRatios)
         n_crops = len(output["crops"])
         salient_x, salient_y, = output[
@@ -382,6 +382,6 @@ class ImageSaliencyModel(object):
         **kwargs,
     ):
         with tempfile.NamedTemporaryFile("w+b") as fp:
-            print(fp.name)
+            # print(fp.name)
             img.save(fp, img_format)
             self.plot_img_crops(Path(fp.name), **kwargs)
