@@ -22,10 +22,12 @@ def cropSalienctAspects(image_name, image_path):
   imageDataPath = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}"
   import os 
   os.mkdir(imageDataPath)
+  os.mkdir(f"{imageDataPath}/my_crops")
+  os.mkdir(f"{imageDataPath}/twitter")
 
   from .crop_api import ImageSaliencyModel
   model = ImageSaliencyModel(crop_binary_path = bin_path.absolute(), crop_model_path = model_path.absolute())
-  saliencyData = model.plot_img_crops(img_path, f"{imageDataPath}/head_map.jpeg")
+  saliencyData = model.plot_img_crops(img_path, f"{imageDataPath}/twitter/heat_map.jpeg")
   # print(saliencyData)
 
 
