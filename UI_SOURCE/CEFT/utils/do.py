@@ -42,8 +42,8 @@ def cropSalienctAspects(image_name, image_path):
   model = ImageSaliencyModel(crop_binary_path = bin_path.absolute(), crop_model_path = model_path.absolute())
   saliencyData = model.plot_img_crops(img_path, f"{imageDataPath}/twitter/heat_map.jpeg")
   # print(saliencyData)
-  # plt.close()
-  # topFeatureMark(image_path, f"{imageDataPath}/twitter/top_feature.jpeg", saliencyData)
+  plt.close()
+  topFeatureMark(image_path, f"{imageDataPath}/twitter/top_feature.jpeg", saliencyData)
 
 
   from fractions import Fraction
