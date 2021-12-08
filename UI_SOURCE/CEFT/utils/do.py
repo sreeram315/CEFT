@@ -22,7 +22,7 @@ def topFeatureMark(image_path, download_path, saliencyData):
   top10Average    = saliencyData['top10_average_coordinates']
   plt.plot(mostSalientPoint[0], mostSalientPoint[1], "xr", markersize=10)
   plt.plot(top10Average[0], top10Average[1], "xg", markersize=10)
-  plt.savefig(download_path)
+  plt.savefig(download_path, bbox_inches='tight', pad_inches=0)
   plt.close()
 
 def cropSalienctAspects(image_name, image_path):

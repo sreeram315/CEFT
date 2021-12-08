@@ -5,39 +5,68 @@
 
 {% block cont_ex %}
 
-<div class="container pb-3">
+<div class="container pb-2 pt-2">
 	<b>ID:</b> {{image.id}} <br/>
 	<b>Name:</b> {{image.name}} <br/>
 	<b>Share results using URL:</b> <a href="http://13.235.13.185:8000{{ request.path }}"> http://13.235.13.185:8000{{ request.path }}</a>
 </div>
 
+<hr/>
 <div class="container">
+	<h2 style="color: red;"><u>Final Crops</u></h2>
 	<div class="row pb-4">
 		<div class="col-6">
-			<h3>Aspect Ratio: .615</h3>
+			<h4>Aspect Ratio: .615</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/0.3125.jpeg"/>
 		</div>
 		<div class="col-6">
-			<h3>Aspect Ratio: .312</h3>
+			<h4>Aspect Ratio: .312</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/0.3125.jpeg"/>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-4">
-			<h3>Aspect Ratio: 1</h3>
+			<h4>Aspect Ratio: 1</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/1.0.jpeg"/>
 		</div>
 		<div class="col-4">
-			<h3>Aspect Ratio: 1.14</h3>
+			<h4>Aspect Ratio: 1.14</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/1.14.jpeg"/>
 		</div>
 		<div class="col-4">
-			<h3>Aspect Ratio: 2</h3>
+			<h4>Aspect Ratio: 2</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/2.jpeg"/>
 		</div>
 	</div>
 </div>
+<hr/>
+
+<div class="container pt-4">
+	<h2 style="color: red;"><u>Heat Map Analysis </u> (ML Model)</h2>
+	<div class="row ph-4">
+		<div class="col-4">
+			<h4> Original Image: </h4>
+			<img class="img-responsive" src="/static/images/{{image.name}}.jpeg" />
+
+		</div>
+		<div class="col-4">
+			<h4> Heat Map: </h4>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/twitter/heat_map.jpeg" />
+			
+		</div>
+		<div class="col-4">
+			<h4> Top Features: </h4>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/twitter/top_feature.jpeg" />
+			
+		</div>
+	</div>
+</div>
+
 
 {% endblock %} 
 
 {% block js %}{% endblock %}
+
+
+
+
