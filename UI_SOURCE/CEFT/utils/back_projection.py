@@ -55,7 +55,7 @@ def refine_saliency_with_grabcut(img, saliency):
 
 def backprojection_saliency(img, download_path):
 	saliency = saliency_map(img)
-	cv2.imwrite(f"{download_path}/contours.jpg", saliency)
+	cv2.imwrite(f"{download_path}/contours.jpeg", saliency)
 	mask, contours = refine_saliency_with_grabcut(img, saliency)
 	# cv2.imwrite("refine_saliency_with_grabcut.jpg", mask)
 	return mask, contours
@@ -71,7 +71,7 @@ def saveBackProjectionData(image_path, download_path):
 	# print (height, width, channels)
 	mask, contours = backprojection_saliency(img, download_path)
 	segmentation = img*mask[:,:,np.newaxis]
-	cv2.imwrite(f"{download_path}/contours_result.jpg", segmentation)
+	cv2.imwrite(f"{download_path}/contours_result.jpeg", segmentation)
 
 	# print(len(contours))
 	# contours.sort()

@@ -65,6 +65,23 @@
 
 <div class="container pt-4">
 	<h2 style="color: red;"><u>Contours Analysis </u> (Back Projection)</h2>
+	<div class="row ph-4">
+		<div class="col-4">
+			<h4> Original Image: </h4>
+			<img class="img-responsive" src="/static/images/{{image.name}}.jpeg" />
+
+		</div>
+		<div class="col-4">
+			<h4> Contours: </h4>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/back_projection/contours.jpeg" />
+			
+		</div>
+		<div class="col-4">
+			<h4> Contours Hotspots: </h4>
+			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/back_projection/contours_hotspots.jpeg" />
+			
+		</div>
+	</div>
 </div>
 
 
