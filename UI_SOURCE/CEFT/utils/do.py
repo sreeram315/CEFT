@@ -12,6 +12,8 @@ from collections import namedtuple
 from matplotlib.patches import Rectangle
 from matplotlib.collections import PatchCollection
 
+from .back_projection import saveBackProjectionData
+
 def topFeatureMark(image_path, download_path, saliencyData):
   import matplotlib.pyplot as plt
   import matplotlib.image as mpimg
@@ -62,6 +64,8 @@ def cropSalienctAspects(image_name, image_path):
 def generateBackProjectionData(image_name, image_path):
   nameWithoutExtension = image_name
   download_path = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}/back_projection"
+  import os 
+  os.mkdir(f"{download_path}")
   saveBackProjectionData(image_path, download_path)
 
 
