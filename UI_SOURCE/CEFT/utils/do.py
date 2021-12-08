@@ -23,6 +23,7 @@ def topFeatureMark(image_path, download_path, saliencyData):
   plt.plot(mostSalientPoint[0], mostSalientPoint[1], "xr", markersize=10)
   plt.plot(top10Average[0], top10Average[1], "xg", markersize=10)
   plt.savefig(download_path)
+  plt.close()
 
 def cropSalienctAspects(image_name, image_path):
   # print("CALLED cropSalienctAspects")
@@ -41,7 +42,7 @@ def cropSalienctAspects(image_name, image_path):
   model = ImageSaliencyModel(crop_binary_path = bin_path.absolute(), crop_model_path = model_path.absolute())
   saliencyData = model.plot_img_crops(img_path, f"{imageDataPath}/twitter/heat_map.jpeg")
   # print(saliencyData)
-  # topFeatureMark(image_path, f"{imageDataPath}/twitter/top_feature.jpeg", saliencyData)
+  topFeatureMark(image_path, f"{imageDataPath}/twitter/top_feature.jpeg", saliencyData)
 
 
   from fractions import Fraction
