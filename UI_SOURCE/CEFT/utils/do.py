@@ -77,7 +77,7 @@ def generateBackProjectionData(image_name, image_path, imageObj):
   download_path = f"/home/ubuntu/TaskSchedulingAlgorithm/UI_SOURCE/CEFT/static/saliency_outputs/{nameWithoutExtension}/back_projection"
   import os 
   os.mkdir(f"{download_path}")
-  saveBackProjectionData(image_path, download_path)
+  saveBackProjectionData(image_path, download_pathm, imageObj)
 
 
 
