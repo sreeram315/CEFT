@@ -12,14 +12,24 @@
 </div>
 
 <hr/>
-<div class="container">
+<div class="container-fluid pl-5 pr-5">
 	<h2 style="color: red;"><u>Final Crops</u></h2>
 	<div class="row pb-4">
-		<div class="col-6">
+		<div class="col-4">
+			Most Salient Coordinate: ({{image.topFeature_x}}, {{image.topFeature_y}}) <br/>
+			Main Components Salient Centre: ({{image.topFeature_x}}, {{image.topFeature_y}}) <br/>
+			No. of contours taken: 4 <br/>
+			Contour 1: Point({{image.contour1_x}}, {{image.contour1_y}}) | Size:  {{image.contour1_size}}<br/>
+			Contour 2: Point({{image.contour2_x}}, {{image.contour2_y}}) | Size:  {{image.contour2_size}}<br/>
+			Contour 3: Point({{image.contour3_x}}, {{image.contour3_y}}) | Size:  {{image.contour3_size}}<br/>
+			Contour 4: Point({{image.contour4_x}}, {{image.contour4_y}}) | Size:  {{image.contour4_size}}<br/>
+
+		</div>
+		<div class="col-4">
 			<h4>Aspect Ratio: 10:16 (0.615)</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/0.3125.jpeg"/>
 		</div>
-		<div class="col-6">
+		<div class="col-4">
 			<h4>Aspect Ratio: 5:16 (0.3125)</h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/my_crops/0.3125.jpeg"/>
 		</div>

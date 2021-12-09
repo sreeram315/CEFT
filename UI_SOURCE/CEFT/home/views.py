@@ -33,8 +33,8 @@ class SaliencyTemplateView(FormView):
 			obj.name = ((obj.image.name).split("."))[0]
 			obj.save()
 			image_path, image_name = obj.image.path, obj.name
-			cropSalienctAspects(image_name, image_path)
-			generateBackProjectionData(image_name, image_path)
+			cropSalienctAspects(image_name, image_path, obj)
+			generateBackProjectionData(image_name, image_path, obj)
 		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 
 	def get_success_url(self):

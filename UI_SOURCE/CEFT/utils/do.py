@@ -27,7 +27,7 @@ def topFeatureMark(image_path, download_path, saliencyData):
   plt.savefig(download_path, bbox_inches='tight', pad_inches=0)
   plt.close()
 
-def cropSalienctAspects(image_name, image_path):
+def cropSalienctAspects(image_name, image_path, imageObj):
   # print("CALLED cropSalienctAspects")
   img_path    = Path(image_path)
   bin_path    = Path("utils/candidate_crops")
@@ -55,6 +55,13 @@ def cropSalienctAspects(image_name, image_path):
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
   top10_average_coordinates = saliencyData['top10_average_coordinates']
   top_feature = saliencyData['salient_coordinates']
+
+  imageObj.topFeature_x     = top_feature[0]
+  imageObj.topFeature_y     = top_feature[1]
+  imageObj.mainComponent_x  = top10_average_coordinates[0]
+  imageObj.mainComponent_y  = top10_average_coordinates[1]
+  imageObj.save()
+
   # print("Aspect Ratios are:")
   for ratio in aspectRatios:
     fraction = Fraction(ratio).limit_denominator(10)

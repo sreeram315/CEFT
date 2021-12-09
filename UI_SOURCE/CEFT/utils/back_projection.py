@@ -60,7 +60,7 @@ def backprojection_saliency(img, download_path):
 	# cv2.imwrite("refine_saliency_with_grabcut.jpg", mask)
 	return mask, contours
 
-def saveBackProjectionData(image_path, download_path):
+def saveBackProjectionData(image_path, download_path, imageObj):
 	import matplotlib.pyplot as plt
 	import matplotlib.image as mpimg
 	import numpy as np
@@ -93,6 +93,13 @@ def saveBackProjectionData(image_path, download_path):
 	points = points[:4]
 	# print(points)
 
+
+	imageObj.contour1_x, imageObj.contour1_y, imageObj.contour1_size = points[0][0], points[0][1], points[0][2]
+	imageObj.contour2_x, imageObj.contour2_y, imageObj.contour2_size = points[1][0], points[1][1], points[1][2]
+	imageObj.contour3_x, imageObj.contour3_y, imageObj.contour3_size = points[2][0], points[2][1], points[2][2]
+	imageObj.contour4_x, imageObj.contour4_y, imageObj.contour4_size = points[3][0], points[3][1], points[3][2]
+	imageObj.save()
+
 	image = mpimg.imread(image_path)
 	height, width, _ = image.shape
 	originalSize = (width, height)
@@ -100,10 +107,13 @@ def saveBackProjectionData(image_path, download_path):
 	pts = np.array([(el[0], el[1]) for el in points])
 	plt.imshow(image)
 
+
+
 	for p in pts:
 		x, y = convert((p[0], p[1]), newSize, originalSize)
 		# print("->>", (p[0], p[1]), (x, y))
 		plt.plot(x, y, "or", markersize=10)
+
 
 	# plt.show()
 	plt.savefig(f"{download_path}/contours_hotspots.jpeg", bbox_inches='tight', pad_inches=0)
