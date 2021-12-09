@@ -27,7 +27,8 @@ def cropImage(imagePath, aspectRatio, salientCoordinates, top_feature, outputFil
 		left 		= max(0, salientCoordinates[0] - (finalWidth/2))
 		right 		= left + finalWidth
 
-
+	top_feature[0] = int(top_feature[0])
+	top_feature[1] = int(top_feature[1])
 	m1_x, m1_y = top_feature[0], max(0, top_feature[1]-(0.05 * height))
 	m2_x, m2_y = top_feature[0], min(top_feature[1]+(0.05 * height), height)
 	m3_x, m3_y = max(0, top_feature[0]-(0.05 * width)), top_feature[1]
