@@ -53,13 +53,14 @@ def cropSalienctAspects(image_name, image_path):
   absoluteImagePath = str(img_path.absolute())
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
   salientCoordinates = saliencyData['top10_average_coordinates']
+  top_feature = saliencyData['salient_coordinates']
   # print("Aspect Ratios are:")
   for ratio in aspectRatios:
     fraction = Fraction(ratio).limit_denominator(10)
     height = fraction.numerator
     width = fraction.denominator
     # print(f"Aspect Width: {width} Height: {height}")
-    cropImage(absoluteImagePath, (width, height), salientCoordinates, f"{imageDataPath}/my_crops/{ratio}")
+    cropImage(absoluteImagePath, (width, height), salientCoordinates topFeature,, f"{imageDataPath}/my_crops/{ratio}")
 
 def generateBackProjectionData(image_name, image_path):
   nameWithoutExtension = image_name
