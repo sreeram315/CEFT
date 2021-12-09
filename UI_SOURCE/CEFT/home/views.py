@@ -15,6 +15,8 @@ from django.conf.urls.static import static
 import json
 
 
+class MessageView(TemplateView):
+	template_name = 'message.html'
 
 class HomeView(TemplateView):
 	template_name = 'home.html'
@@ -25,10 +27,14 @@ class CEFTTemplateView(TemplateView):
 class SaliencyTemplateView(FormView):
 	template_name = 'saliency.html'
 	form_class = SaliencyForm
+	var = True
 
 	def form_valid(self, form):
 		if form.is_valid():
 			obj = form.save()
+			if obj.image.name[:-4] != ".jpeg":
+				self.var = False
+				return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 			obj.save()
 			obj.name = ((obj.image.name).split("."))[0]
 			obj.save()
@@ -38,6 +44,8 @@ class SaliencyTemplateView(FormView):
 		return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 
 	def get_success_url(self):
+		if not self.var:
+			return "/message"
 		obj = SaliencyImage.objects.last()
 		return f"/saliency-analysis/{obj.id}/"
 

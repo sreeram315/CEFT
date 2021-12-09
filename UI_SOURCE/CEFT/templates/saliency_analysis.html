@@ -76,20 +76,29 @@
 <div class="container pt-4">
 	<h2 style="color: red;"><u>Contours Analysis </u> (Back Projection)</h2>
 	<div class="row ph-4">
-		<div class="col-4">
+		<div class="col-3">
 			<h4> Original Image: </h4>
 			<img class="img-responsive" src="/static/images/{{image.name}}.jpeg" />
 
 		</div>
-		<div class="col-4">
+		<div class="col-3">
 			<h4> Contours: </h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/back_projection/contours.jpeg" />
 			
 		</div>
-		<div class="col-4">
+		<div class="col-3">
 			<h4> Contours Hotspots: </h4>
 			<img class="img-responsive" src="/static/saliency_outputs/{{image.name}}/back_projection/contours_hotspots.jpeg" />
 			
+		</div>
+		<div class="col-3">
+			<h4> Contours Data: </h4>
+			No. of contours taken: 4 <br/>
+			Contour 1: Point({{image.contour1_x}}, {{image.contour1_y}}) | Size:  {{image.contour1_size}}<br/>
+			Contour 2: Point({{image.contour2_x}}, {{image.contour2_y}}) | Size:  {{image.contour2_size}}<br/>
+			Contour 3: Point({{image.contour3_x}}, {{image.contour3_y}}) | Size:  {{image.contour3_size}}<br/>
+			Contour 4: Point({{image.contour4_x}}, {{image.contour4_y}}) | Size:  {{image.contour4_size}}<br/>
+
 		</div>
 	</div>
 </div>
