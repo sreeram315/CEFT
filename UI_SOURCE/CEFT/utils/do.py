@@ -60,7 +60,7 @@ def cropSalienctAspects(image_name, image_path):
     height = fraction.numerator
     width = fraction.denominator
     # print(f"Aspect Width: {width} Height: {height}")
-    cropImage(absoluteImagePath, (width, height), salientCoordinates, top_feature,, f"{imageDataPath}/my_crops/{ratio}")
+    cropImage(absoluteImagePath, (width, height), salientCoordinates, top_feature, f"{imageDataPath}/my_crops/{ratio}")
 
 def generateBackProjectionData(image_name, image_path):
   nameWithoutExtension = image_name
