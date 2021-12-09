@@ -39,6 +39,7 @@ def cropSalienctAspects(image_name, image_path):
   os.mkdir(imageDataPath)
   os.mkdir(f"{imageDataPath}/my_crops")
   os.mkdir(f"{imageDataPath}/twitter")
+  os.mkdir(f"{imageDataPath}/main_components")
 
   from .crop_api import ImageSaliencyModel
   model = ImageSaliencyModel(crop_binary_path = bin_path.absolute(), crop_model_path = model_path.absolute())
@@ -49,10 +50,10 @@ def cropSalienctAspects(image_name, image_path):
 
 
   from fractions import Fraction
-  from .utils import cropImage
+  from .utils import cropImageInclusivity
   absoluteImagePath = str(img_path.absolute())
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
-  salientCoordinates = saliencyData['top10_average_coordinates']
+  top10_average_coordinates = saliencyData['top10_average_coordinates']
   top_feature = saliencyData['salient_coordinates']
   # print("Aspect Ratios are:")
   for ratio in aspectRatios:
@@ -60,7 +61,9 @@ def cropSalienctAspects(image_name, image_path):
     height = fraction.numerator
     width = fraction.denominator
     # print(f"Aspect Width: {width} Height: {height}")
-    cropImage(absoluteImagePath, (width, height), salientCoordinates, top_feature, f"{imageDataPath}/my_crops/{ratio}")
+    cropImage(absoluteImagePath, (width, height), top_feature, f"{imageDataPath}/twitter/{ratio}")
+    cropImage(absoluteImagePath, (width, height), top10_average_coordinates, f"{imageDataPath}/main_components/{ratio}")
+    cropImageInclusivity(absoluteImagePath, (width, height), top10_average_coordinates, top_feature, f"{imageDataPath}/my_crops/{ratio}")
 
 def generateBackProjectionData(image_name, image_path):
   nameWithoutExtension = image_name
