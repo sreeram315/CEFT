@@ -50,7 +50,7 @@ def cropSalienctAspects(image_name, image_path):
 
 
   from fractions import Fraction
-  from .utils import cropImageInclusivity
+  from .utils import cropImageInclusivity, cropImage
   absoluteImagePath = str(img_path.absolute())
   aspectRatios = [0.3125, 0.625, 1.0, 1.14, 2]
   top10_average_coordinates = saliencyData['top10_average_coordinates']
