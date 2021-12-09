@@ -32,8 +32,9 @@ class SaliencyTemplateView(FormView):
 	def form_valid(self, form):
 		if form.is_valid():
 			obj = form.save()
-			if obj.image.name[:-4] != ".jpeg":
+			if obj.image.name[-5:] != ".jpeg":
 				self.var = False
+				print("NOT JPEG")
 				return super(SaliencyTemplateView, self).form_valid(SaliencyForm)
 			obj.save()
 			obj.name = ((obj.image.name).split("."))[0]
